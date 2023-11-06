@@ -39,23 +39,23 @@ def get_dog_data():
     data = [{"movieId": row[0], "name_movie": row[1], "videoLink": row[2], "genre": row[3], "rate": row[4],"pic_movie": row[5]} for row in result]
     return jsonify(data)
 
-@app.route("/movie/<name>")
-def get_movie_by_name(name):
-    cursor = connection.cursor()
+# @app.route("/movie/<name>")
+# def get_movie_by_name(name):
+#     cursor = connection.cursor()
 
-    # Use a parameterized query with LIKE for partial matching
-    query = "SELECT * FROM movies WHERE name_movie LIKE %s"
-    cursor.execute(query, ('%' + name + '%',))
+#     # Use a parameterized query with LIKE for partial matching
+#     query = "SELECT * FROM movies WHERE name_movie LIKE %s"
+#     cursor.execute(query, ('%' + name + '%',))
 
-    # Get the data
-    result = cursor.fetchall()
+#     # Get the data
+#     result = cursor.fetchall()
 
-    print("Number=", cursor.rowcount)
-    cursor.close()
+#     print("Number=", cursor.rowcount)
+#     cursor.close()
 
-    # Convert the data to JSON
-    data = [{"movieId": row[0], "name_movie": row[1], "videoLink": row[2], "genre": row[3], "rate": row[4], "pic_movie": row[5]} for row in result]
-    return jsonify({"data": data})
+#     # Convert the data to JSON
+#     data = [{"movieId": row[0], "name_movie": row[1], "videoLink": row[2], "genre": row[3], "rate": row[4], "pic_movie": row[5]} for row in result]
+#     return jsonify({"data": data})
 
 
 @app.route("/update/movie/<movieid>", methods=["PUT"])
@@ -103,23 +103,23 @@ def insert_movie():
     
 
 
-@app.route("/movieid/<movieid>")
-def get_movies_by_id(movieid):
-    cursor = connection.cursor()
+# @app.route("/movieid/<movieid>")
+# def get_movies_by_id(movieid):
+#     cursor = connection.cursor()
 
-    # Use a parameterized query to select by genre
-    query = "SELECT * FROM movies WHERE movieId = %s"
-    cursor.execute(query, (movieid,))
+#     # Use a parameterized query to select by genre
+#     query = "SELECT * FROM movies WHERE movieId = %s"
+#     cursor.execute(query, (movieid,))
 
-    # Get the data
-    result = cursor.fetchall()
+#     # Get the data
+#     result = cursor.fetchall()
 
-    print("Number=", cursor.rowcount)
-    cursor.close()
+#     print("Number=", cursor.rowcount)
+#     cursor.close()
 
-    # Convert the data to JSON
-    data = [{"movieId": row[0], "name_movie": row[1], "videoLink": row[2], "genre": row[3], "rate": row[4], "pic_movie": row[5]} for row in result]
-    return jsonify({"data": data})
+#     # Convert the data to JSON
+#     data = [{"movieId": row[0], "name_movie": row[1], "videoLink": row[2], "genre": row[3], "rate": row[4], "pic_movie": row[5]} for row in result]
+#     return jsonify({"data": data})
 
 
 
@@ -146,26 +146,27 @@ def delete_movie(movieid):
 #######################  user
 #######################  user
 #######################  user
-@app.route("/user")
-def get_user():
-    cursor = connection.cursor()
 
-    # ตัวอย่าง query
-    query = "SELECT * FROM user"
+# @app.route("/user")
+# def get_user():
+#     cursor = connection.cursor()
 
-    # สั่ง execute query
-    cursor.execute(query)
+#     # ตัวอย่าง query
+#     query = "SELECT * FROM user"
 
-    # ดึงข้อมูล
-    result = cursor.fetchall()
+#     # สั่ง execute query
+#     cursor.execute(query)
 
-    print("Number=",cursor.rowcount)
-    # ปิด cursor
-    cursor.close()  
+#     # ดึงข้อมูล
+#     result = cursor.fetchall()
 
-    # แปลงข้อมูลให้เป็น JSON
-    data = [{"userId": row[0], "username": row[1], "pass": row[2], "role": row[3]} for row in result]
-    return jsonify(data)
+#     print("Number=",cursor.rowcount)
+#     # ปิด cursor
+#     cursor.close()  
+
+#     # แปลงข้อมูลให้เป็น JSON
+#     data = [{"userId": row[0], "username": row[1], "pass": row[2], "role": row[3]} for row in result]
+#     return jsonify(data)
 
 
 @app.route("/user/<username>")
@@ -212,22 +213,22 @@ def insert_user():
 
         return jsonify({"message": "Data inserted successfully."}), 201
     
-@app.route("/search_user/<username>")
-def search_user(username):
-    cursor = connection.cursor()
+# @app.route("/search_user/<username>")
+# def search_user(username):
+#     cursor = connection.cursor()
 
-    # Construct a query to search for users by username
-    query = "SELECT * FROM user WHERE username = %s"
-    cursor.execute(query, (username,))
+#     # Construct a query to search for users by username
+#     query = "SELECT * FROM user WHERE username = %s"
+#     cursor.execute(query, (username,))
 
-    # Get the data
-    result = cursor.fetchall()
+#     # Get the data
+#     result = cursor.fetchall()
 
-    cursor.close()
+#     cursor.close()
 
-    # Convert the data to JSON
-    data = [{"userId": row[0], "username": row[1], "pass": row[2], "role": row[3]} for row in result]
-    return jsonify(data)   
+#     # Convert the data to JSON
+#     data = [{"userId": row[0], "username": row[1], "pass": row[2], "role": row[3]} for row in result]
+#     return jsonify(data)   
 
 
 #######################  Review
@@ -257,25 +258,25 @@ def get_reviews():
     data = [{"reviewsId": row[0], "movieId": row[1], "userId": row[2], "comment": row[3]} for row in result]
     return jsonify(data)
 
-@app.route("/reviews/user/<userId>")
-def get_reviews_userid(userId):
-    cursor = connection.cursor()
+# @app.route("/reviews/user/<userId>")
+# def get_reviews_userid(userId):
+#     cursor = connection.cursor()
 
-    # ตัวอย่าง query
-    query = "SELECT * FROM reviews where userId = %s"
-    # สั่ง execute query
-    cursor.execute(query,(userId,))
+#     # ตัวอย่าง query
+#     query = "SELECT * FROM reviews where userId = %s"
+#     # สั่ง execute query
+#     cursor.execute(query,(userId,))
 
-    # ดึงข้อมูล
-    result = cursor.fetchall()
+#     # ดึงข้อมูล
+#     result = cursor.fetchall()
 
-    print("Number=",cursor.rowcount)
-    # ปิด cursor
-    cursor.close()  
+#     print("Number=",cursor.rowcount)
+#     # ปิด cursor
+#     cursor.close()  
 
-    # แปลงข้อมูลให้เป็น JSON
-    data = [{"reviewsId": row[0], "movieId": row[1], "userId": row[2], "comment": row[3]} for row in result]
-    return jsonify({"data": data})
+#     # แปลงข้อมูลให้เป็น JSON
+#     data = [{"reviewsId": row[0], "movieId": row[1], "userId": row[2], "comment": row[3]} for row in result]
+#     return jsonify({"data": data})
 
 @app.route("/reviews/movie/<movieid>")
 def get_reviews_movieid(movieid):
@@ -322,6 +323,10 @@ def insert_review():
         return jsonify({"message": "Data inserted successfully."}), 201
 
 
+
+
+# +++================================================
+
 @app.route("/select/genre")
 def get_gen():
     cursor = connection.cursor()
@@ -342,6 +347,10 @@ def get_gen():
     # แปลงข้อมูลให้เป็น JSON
     data = [{"genreId": row[0], "name_genre": row[1]} for row in result]
     return jsonify(data)
+
+
+
+# +++================================================
 
 @app.route("/select/rate")
 def get_rate():
@@ -365,23 +374,23 @@ def get_rate():
     return jsonify(data)
 
 
-@app.route("/genre/<genre>")
-def get_movies_by_genre(genre):
-    cursor = connection.cursor()
+# @app.route("/genre/<genre>")
+# def get_movies_by_genre(genre):
+#     cursor = connection.cursor()
 
-    # Use a parameterized query to select by genre
-    query = "SELECT * FROM movies,genre WHERE genre = genreId and name_genre LIKE %s"
-    cursor.execute(query, ('%' + genre + '%',))
+#     # Use a parameterized query to select by genre
+#     query = "SELECT * FROM movies,genre WHERE genre = genreId and name_genre LIKE %s"
+#     cursor.execute(query, ('%' + genre + '%',))
 
-    # Get the data
-    result = cursor.fetchall()
+#     # Get the data
+#     result = cursor.fetchall()
 
-    print("Number=", cursor.rowcount)
-    cursor.close()
+#     print("Number=", cursor.rowcount)
+#     cursor.close()
 
-    # Convert the data to JSON
-    data = [{"movieId": row[0], "name_movie": row[1], "videoLink": row[2], "genre": row[3], "rate": row[4], "pic_movie": row[5]} for row in result]
-    return jsonify({"data": data})
+#     # Convert the data to JSON
+#     data = [{"movieId": row[0], "name_movie": row[1], "videoLink": row[2], "genre": row[3], "rate": row[4], "pic_movie": row[5]} for row in result]
+#     return jsonify({"data": data})
 
 
 if __name__ == "__main__":
